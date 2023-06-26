@@ -1,8 +1,8 @@
 import sys
 import sqlalchemy
-from urllib.parse import quote
+import os
 
-conn_addy = "postgresql://edb_admin:%s@p-r8xgmomuzb.pg.biganimal.io:5432/edb_admin" % quote('http://hY5-C67*_frEs@m0/#23!')
+conn_addy = os.getenv('DB_URL')
 
 def kw_search(keyword):
     
