@@ -2,9 +2,11 @@ import sys
 import sqlalchemy
 import os
 
-conn_addy = os.getenv('DB_URL')
+
 
 def kw_search(keyword):
+    
+    conn_addy = os.getenv('DB_URL')
     
     engine = sqlalchemy.create_engine(conn_addy)
 
