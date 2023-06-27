@@ -30,6 +30,7 @@ def app():
             
             st.write('\n\n')
             st.write(f'Showing {results_num} Results for "{keyword}":')
+            st.title('\n\n')
 
             for i, r in enumerate(results):
                 st.markdown(f'**{i+1}. {r[0]}** | {r[1]}')
