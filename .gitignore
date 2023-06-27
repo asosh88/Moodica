@@ -3,3 +3,5 @@ __pycache__/
 *.ipynb
 virtual/
 sample.db
+cloud-vectordb-examples/
+
