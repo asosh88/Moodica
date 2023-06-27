@@ -16,7 +16,8 @@ def app():
         search_type = st.radio(
         'Search for:',
         ('Artists', 'Albums', 'Songs', 'Lyrics', 'Credits'),
-        horizontal=True
+        horizontal=True,
+        index=3
         )
     
         keyword = st.text_input('Keywords:')
