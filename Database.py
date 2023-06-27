@@ -51,6 +51,16 @@ def kw_search(keyword, field):
             """)
             
     
+        case 'Credits':
+            query = sqlalchemy.text(f"""
+            SELECT df."SongName", df."Artist", df."Album", df."Year"
+            FROM df
+            WHERE df."Credits" LIKE :keyword
+            AND df."Year" IS NOT NULL
+            ORDER BY df."Year" DESC;
+            """)
+
+            
     results = conn.execute(query, {'field': f'"{field}"', 'keyword': f'%{keyword}%'})
     
     return results.fetchall()
