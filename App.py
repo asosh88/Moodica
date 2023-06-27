@@ -15,7 +15,7 @@ def app():
     if service_type == 'Search':
         search_type = st.radio(
         'Search for:',
-        ('Artists', 'Albums', 'Songs', 'Lyrics'),
+        ('Artists', 'Albums', 'Songs', 'Lyrics', 'Credits'),
         horizontal=True
         )
     
