@@ -28,8 +28,10 @@ def app():
             
             results_num = len(results)
             
+            field = {'Artists': 'Artist(s)', 'Albums': 'Album Names', 'Songs': 'Song Names', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
+            
             st.write('\n\n')
-            st.write(f'Showing {results_num} Results for "{keyword}":')
+            st.write(f'Showing {results_num} Results for "{keyword}" in {field[search_type]}:')
             st.title('\n\n')
 
             for i, r in enumerate(results):
