@@ -6,7 +6,9 @@ import os
 
 def kw_search(keyword, field):
     
-    conn_addy = os.getenv('DB_URL')
+    #conn_addy = os.getenv('DB_URL')
+    
+    conn_addy = 'postgresql://edb_admin:http%3A//hY5-C67%2A_frEs%40m0/%2323%21@p-r8xgmomuzb.pg.biganimal.io:5432/edb_admin'
     
     engine = sqlalchemy.create_engine(conn_addy)
 
