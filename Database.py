@@ -14,53 +14,52 @@ def kw_search(keyword, field):
 
     conn = engine.connect()
     
-    match field:
-        case 'Artists':
-            query = sqlalchemy.text(f"""
-            SELECT df."SongName", df."Artist", df."Album", df."Year"
-            FROM df
-            WHERE df."Artist" LIKE :keyword
-            AND df."Year" IS NOT NULL
-            ORDER BY df."Year" DESC;
-            """)
+    if field == 'Artists':
+        query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
+        FROM df
+        WHERE df."Artist" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+        """)
 
-            
-        case 'Albums':
-            query = sqlalchemy.text(f"""
-            SELECT df."SongName", df."Artist", df."Album", df."Year"
-            FROM df
-            WHERE df."Album" LIKE :keyword
-            AND df."Year" IS NOT NULL
-            ORDER BY df."Year" DESC;
-            """)
-            
-        case 'Songs':
-            query = sqlalchemy.text(f"""
-            SELECT df."SongName", df."Artist", df."Album", df."Year"
-            FROM df
-            WHERE df."SongName" LIKE :keyword
-            AND df."Year" IS NOT NULL
-            ORDER BY df."Year" DESC;
-            """)
-            
-        case 'Lyrics':
-            query = sqlalchemy.text(f"""
-            SELECT df."SongName", df."Artist", df."Album", df."Year"
-            FROM df
-            WHERE df."Lyrics" LIKE :keyword
-            AND df."Year" IS NOT NULL
-            ORDER BY df."Year" DESC;
-            """)
-            
-    
-        case 'Credits':
-            query = sqlalchemy.text(f"""
-            SELECT df."SongName", df."Artist", df."Album", df."Year"
-            FROM df
-            WHERE df."Credits" LIKE :keyword
-            AND df."Year" IS NOT NULL
-            ORDER BY df."Year" DESC;
-            """)
+
+    if field == 'Albums':
+        query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
+        FROM df
+        WHERE df."Album" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+        """)
+
+    if field == 'Songs':
+        query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
+        FROM df
+        WHERE df."SongName" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+        """)
+
+    if field == 'Lyrics':
+        query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
+        FROM df
+        WHERE df."Lyrics" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+        """)
+
+
+    if field == 'Credits':
+        query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
+        FROM df
+        WHERE df."Credits" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+        """)
 
             
     results = conn.execute(query, {'field': f'"{field}"', 'keyword': f'%{keyword}%'})
