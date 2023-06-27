@@ -41,7 +41,7 @@ def app():
             
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
             
-            results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc])
+            results = results.sort_values(by=([sort_by]), ascending=sort_asc_dict[sort_asc])
             
             results = results.reset_index(drop=True)
             
