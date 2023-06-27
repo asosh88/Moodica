@@ -15,7 +15,8 @@ def app():
     
     sort_by = st.sidebar.radio(
     'Sort by:',
-    ('Artist', 'Album', 'Year')
+    ('Artist', 'Album', 'Year'),
+    index=2
     )
     
     sort_asc = st.sidebar.radio(
@@ -41,11 +42,14 @@ def app():
             
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
             
-            results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc])
+            if sort_by == 'Artist':
+                results = results.sort_values(by=['Artist'], ascending=sort_asc_dict[sort_asc])
+            elif sort_by == 'Album':
+                results = results.sort_values(by=['Album'], ascending=sort_asc_dict[sort_asc])
+            elif sort_by == 'Year':
+                results = results.sort_values(by=['Year'], ascending=sort_asc_dict[sort_asc])
             
             results = results.reset_index(drop=True)
-            
-            #st.dataframe(results)
             
             
             results_num = len(results['SongName'])
