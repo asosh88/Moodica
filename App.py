@@ -38,24 +38,16 @@ def app():
 
         if keyword != '':
             
-            #sort_asc_dict = {'Ascending': True, 'Descending': False}
+            sort_asc_dict = {'Ascending': True, 'Descending': False}
             
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
             
-            if sort_by == 'Artist' and sort_asc == 'Ascending':
-                results = results.sort_values(by=['Artist'], ascending=True)
-            elif sort_by == 'Artist' and sort_asc == 'Descending' :
-                results = results.sort_values(by=['Artist'], ascending=False)
-            elif sort_by == 'Album' and sort_asc == 'Ascending':
-                results = results.sort_values(by=['Album'], ascending=True)
-            elif sort_by == 'Album' and sort_asc == 'Descending':
-                results = results.sort_values(by=['Album'], ascending=False)
-            elif sort_by == 'Year' and sort_asc == 'Ascending':
-                results = results.sort_values(by=['Year'], ascending=True)
-            elif sort_by == 'Year' and sort_asc == 'Descending':
-                results = results.sort_values(by=['Year'], ascending=False)
+            results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc], axis=0)
+            #df.sort_values(by=['col1'])
             
             results = results.reset_index(drop=True)
+            
+            #st.dataframe(results)
             
             
             results_num = len(results['SongName'])
