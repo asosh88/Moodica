@@ -2,6 +2,7 @@ import streamlit as st
 import Database
 import Display
 import pandas as pd
+from urllib.parse import unquote, quote
 
 def app():
     
@@ -33,43 +34,38 @@ def app():
         index=3
         )
     
-        keyword = st.text_input('Keywords:')
-        
+        keyword = st.text_input('Keywords:')        
 
+        field = {'Artists': 'Artist Name', 'Albums': 'Album Name', 'Songs': 'Song Name', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
+
+        sort_asc_dict = {'Ascending': True, 'Descending': False}
+        
         if keyword != '':
             
-            sort_asc_dict = {'Ascending': True, 'Descending': False}
-            
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
-            
-            results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc], axis=0)
-            #df.sort_values(by=['col1'])
-            
-            results = results.reset_index(drop=True)
-            
-            #st.dataframe(results)
-            
-            
-            results_num = len(results['SongName'])
-            
-            field = {'Artists': 'Artist Name', 'Albums': 'Album Name', 'Songs': 'Song Name', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
-            
-            st.write('\n\n')
-            st.write(f'Showing {results_num} Results with "{keyword}" in {field[search_type]}:')
-            st.title('\n\n')
+            if len(results) > 0:
+                results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc], axis=0)            
+                results = results.reset_index(drop=True)                        
+                results_num = len(results['SongName'])
 
-            for i in range(len(results['SongName'])):
+                st.write('\n\n')
+                st.write(f'Showing {results_num} Results with "{keyword}" in {field[search_type]}:')
+                st.title('\n\n')
+
+                for i in range(len(results['SongName'])):                
+                    songname = results['SongName'][i]
+                    artist = results['Artist'][i]
+                    st.markdown(f'**{i+1}. {songname}** | {artist}')
+
+                    if results['Year'][i] != None:
+                        yr = str(results['Year'][i])[:-2]
+                        album = results['Album'][i]
+                        st.markdown(f'Album: *{album} ({yr})*')
+                        st.markdown('\n\n')
+                        
+            else:
+                st.write(f'No Results Found with "{keyword}" in {field[search_type]}:')
                 
-                songname = results['SongName'][i]
-                artist = results['Artist'][i]
-                
-                st.markdown(f'**{i+1}. {songname}** | {artist}')
-                
-                if results['Year'][i] != None:
-                    yr = str(results['Year'][i])[:-2]
-                    album = results['Album'][i]
-                    st.markdown(f'Album: *{album} ({yr})*')
-                    st.markdown('\n\n')
     
     if service_type == 'Recommendation':
         recommendation_type = st.radio(
@@ -78,7 +74,5 @@ def app():
         horizontal=True
         )
             
-
-        
 if __name__ == '__main__':
     app()
