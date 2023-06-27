@@ -52,10 +52,10 @@ def app():
             
             results_num = len(results['SongName'])
             
-            field = {'Artists': 'Artist(s)', 'Albums': 'Album Names', 'Songs': 'Song Names', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
+            field = {'Artists': 'Artist Name', 'Albums': 'Album Name', 'Songs': 'Song Name', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
             
             st.write('\n\n')
-            st.write(f'Showing {results_num} Results for "{keyword}" in {field[search_type]}:')
+            st.write(f'Showing {results_num} Results with "{keyword}" in {field[search_type]}:')
             st.title('\n\n')
 
             for i in range(len(results['SongName'])):
