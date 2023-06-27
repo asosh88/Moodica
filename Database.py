@@ -19,7 +19,6 @@ def kw_search(keyword, field):
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
         WHERE df."Artist" LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
         """)
 
@@ -29,7 +28,6 @@ def kw_search(keyword, field):
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
         WHERE df."Album" LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
         """)
 
@@ -38,7 +36,6 @@ def kw_search(keyword, field):
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
         WHERE df."SongName" LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
         """)
 
@@ -47,7 +44,6 @@ def kw_search(keyword, field):
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
         WHERE df."Lyrics" LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
         """)
 
@@ -57,7 +53,6 @@ def kw_search(keyword, field):
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
         WHERE df."Credits" LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
         """)
 
