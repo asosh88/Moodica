@@ -23,10 +23,15 @@ def app():
         keyword = st.text_input('Keywords:')
 
         if keyword != '':
+            
+            results = Database.kw_search(keyword, search_type)
+            
+            results_num = len(results)
+            
             st.write('\n\n')
-            st.write(f'Showing Results for "{keyword}":')
+            st.write(f'Showing {results_num} Results for "{keyword}":')
 
-            for i, r in enumerate(Database.kw_search(keyword, search_type)):
+            for i, r in enumerate(results):
                 st.markdown(f'**{i+1}. {r[0]}** | {r[1]}')
                 yr = str(r[3])[:-2]
                 st.markdown(f'Album: *{r[2]} ({yr})*')
