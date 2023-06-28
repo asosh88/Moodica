@@ -37,12 +37,12 @@ def app():
         keyword = st.text_input('Keywords:')        
 
         field = {'Artists': 'Artist Name', 'Albums': 'Album Name', 'Songs': 'Song Name', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
-
         sort_asc_dict = {'Ascending': True, 'Descending': False}
         
         if keyword != '':
             
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
+            
             if len(results) > 0:
                 results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc], axis=0)            
                 results = results.reset_index(drop=True)                        
@@ -61,7 +61,10 @@ def app():
                         yr = str(results['Year'][i])[:-2]
                         album = results['Album'][i]
                         st.markdown(f'Album: *{album} ({yr})*')
-                        st.markdown('\n\n')
+                        
+                        
+                    st.button('*Similar Songs*', key=i, help=f'Find Songs with Lyrics Similar to Those of "{songname}" by {artist}')
+                    st.markdown('\n\n')
                         
             else:
                 st.write(f'No Results Found with "{keyword}" in {field[search_type]}.')
