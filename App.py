@@ -40,9 +40,7 @@ def app():
         sort_asc_dict = {'Ascending': True, 'Descending': False}
         
         if keyword != '':
-            
             results = pd.DataFrame(Database.kw_search(keyword, search_type))
-            
             if len(results) > 0:
                 results = results.sort_values(by=[sort_by], ascending=sort_asc_dict[sort_asc], axis=0)            
                 results = results.reset_index(drop=True)                        
