@@ -64,7 +64,7 @@ def app():
                         st.markdown('\n\n')
                         
             else:
-                st.write(f'No Results Found with "{keyword}" in {field[search_type]}:')
+                st.write(f'No Results Found with "{keyword}" in {field[search_type]}.')
                 
     
     if service_type == 'Recommendation':
