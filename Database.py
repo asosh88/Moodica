@@ -18,8 +18,7 @@ def kw_search(keyword, field):
         query = sqlalchemy.text(f"""
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE df."Artist" LIKE :keyword
-        ORDER BY df."Year" DESC;
+        WHERE df."Artist" LIKE :keyword;
         """)
 
 
@@ -27,24 +26,21 @@ def kw_search(keyword, field):
         query = sqlalchemy.text(f"""
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE df."Album" LIKE :keyword
-        ORDER BY df."Year" DESC;
+        WHERE df."Album" LIKE :keyword;
         """)
 
     if field == 'Songs':
         query = sqlalchemy.text(f"""
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE df."SongName" LIKE :keyword
-        ORDER BY df."Year" DESC;
+        WHERE df."SongName" LIKE :keyword;
         """)
 
     if field == 'Lyrics':
         query = sqlalchemy.text(f"""
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE df."Lyrics" LIKE :keyword
-        ORDER BY df."Year" DESC;
+        WHERE df."Lyrics" LIKE :keyword;
         """)
 
 
@@ -52,8 +48,7 @@ def kw_search(keyword, field):
         query = sqlalchemy.text(f"""
         SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE df."Credits" LIKE :keyword
-        ORDER BY df."Year" DESC;
+        WHERE df."Credits" LIKE :keyword;
         """)
 
             
