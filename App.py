@@ -69,7 +69,7 @@ def app():
     
     if service_type == 'Recommendation':
         recommendation_type = st.radio(
-        'Search for A:',
+        'Search for Similar Songs Using:',
         ('Song', 'Playlist'),
         horizontal=True
         )
