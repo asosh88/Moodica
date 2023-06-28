@@ -14,44 +14,23 @@ def kw_search(keyword, field):
 
     conn = engine.connect()
     
-    if field == 'Artists':
-        query = sqlalchemy.text(f"""
-        SELECT df."SongName", df."Artist", df."Album", df."Year", df."SongHandle"
+    fields = {
+        'Artists': 'Artist',
+        'Albums': 'Album',
+        'Songs': 'SongName',
+        'Lyrics': 'Lyrics',
+        'Credits': 'Credits'
+    }
+
+    query = sqlalchemy.text(f"""
+        SELECT df."SongName", df."Artist", df."Album", df."Year"
         FROM df
-        WHERE LOWER(df."Artist") LIKE :keyword;
-        """)
+        WHERE df."{fields[field]}" LIKE :keyword
+        AND df."Year" IS NOT NULL
+        ORDER BY df."Year" DESC;
+    """)
 
-
-    if field == 'Albums':
-        query = sqlalchemy.text(f"""
-        SELECT df."SongName", df."Artist", df."Album", df."Year", df."SongHandle"
-        FROM df
-        WHERE LOWER(df."Album") LIKE :keyword;
-        """)
-
-    if field == 'Songs':
-        query = sqlalchemy.text(f"""
-        SELECT df."SongName", df."Artist", df."Album", df."Year", df."SongHandle"
-        FROM df
-        WHERE LOWER(df."SongName") LIKE :keyword;
-        """)
-
-    if field == 'Lyrics':
-        query = sqlalchemy.text(f"""
-        SELECT df."SongName", df."Artist", df."Album", df."Year", df."SongHandle"
-        FROM df
-        WHERE LOWER(df."Lyrics") LIKE :keyword;
-        """)
-
-    if field == 'Credits':
-        query = sqlalchemy.text(f"""
-        SELECT df."SongName", df."Artist", df."Album", df."Year", df."SongHandle"
-        FROM df
-        WHERE LOWER(df."Credits") LIKE :keyword;
-        """)
-
-            
-    results = conn.execute(query, {'field': f'"{field}"', 'keyword': f'%{keyword.lower()}%'})
+    results = conn.execute(query, {'keyword': f'%{keyword}%'})
     
     return results.fetchall()
 
