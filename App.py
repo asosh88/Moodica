@@ -53,6 +53,7 @@ def app():
                 for i in range(len(results['SongName'])):                
                     songname = results['SongName'][i]
                     artist = results['Artist'][i]
+                    row_index = results['Row_Index'][i]
                     st.markdown(f'**{i+1}. {songname}** | {artist}')
 
                     if results['Year'][i] != None:
