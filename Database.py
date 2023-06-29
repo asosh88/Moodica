@@ -2,7 +2,68 @@ import sys
 import sqlalchemy
 import os
 
+def get_all_songs():
+    
+    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
+    
+    
+    engine = sqlalchemy.create_engine(conn_addy)
 
+    conn = engine.connect()
+    
+    query = sqlalchemy.text(f"""
+        SELECT
+            df."SongName",
+            df."Artist"
+            FROM df;
+    """)
+
+    songs = conn.execute(query)
+    
+    return songs.fetchall()
+    
+
+def get_songs(artist):
+    
+    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
+    
+    
+    engine = sqlalchemy.create_engine(conn_addy)
+
+    conn = engine.connect()
+    
+    query = sqlalchemy.text(f"""
+        SELECT
+            df."Row_Index",
+            df."SongName"
+            FROM df
+            WHERE LOWER(df."Artist") LIKE :artist;
+    """)
+
+    songs = conn.execute(query, {'artist': f'%{artist.lower()}%'})
+    
+    return songs.fetchall()
+
+
+def get_artists():
+    
+    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
+    
+    
+    engine = sqlalchemy.create_engine(conn_addy)
+
+    conn = engine.connect()
+    
+    query = sqlalchemy.text(f"""
+        SELECT
+            DISTINCT(df."Artist")
+            FROM df
+            GROUP BY df."Artist";
+    """)
+
+    artists = conn.execute(query)
+    
+    return artists.fetchall()
 
 def kw_search(keyword, field):
     
