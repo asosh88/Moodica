@@ -34,7 +34,6 @@ def kw_search(keyword, field):
             df."Year"
             FROM df
         WHERE LOWER(df."{fields[field]}") LIKE :keyword
-        AND df."Year" IS NOT NULL
         ORDER BY df."Year" DESC;
     """)
 
