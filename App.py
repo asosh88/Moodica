@@ -93,17 +93,17 @@ def app(state=0):
         st.write('**Search for Similar Songs**')
         st.write('\n\n')
         
-        artists_list = Database.get_all_songs()
+        artists_list = Database.get_artists()
         
         artists = list()
         for artist in artists_list:
-            artists.append(re.sub(r"\(|\)|'|,", '', str(artist[0] + ' BY ' + str(artist[1]))))
+            artists.append(re.sub(r"\(|\)|'|,", '', str(artist)))
             
         artist_ = st_tags(
-        label='Song(s):',
-        text='Enter A Song Name...',
+        label='Artist:',
+        text='Enter A Band or Artist Name',
         suggestions=artists,
-        maxtags = 10,
+        maxtags = 1,
         key='1')
         
         #song_list = Database.get_songs(str(artist_))
@@ -116,7 +116,7 @@ def app(state=0):
             for song in song_list:
                 songs.append(song)
 
-                st.write(song[1])
+                st.write(song)
         
         except:
             pass
