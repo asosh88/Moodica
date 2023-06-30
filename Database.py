@@ -6,7 +6,6 @@ def get_all_songs():
     
     conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
     
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -24,7 +23,7 @@ def get_all_songs():
     
 
 def get_songs(artist):
-    
+        
     conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
     
     
@@ -32,15 +31,26 @@ def get_songs(artist):
 
     conn = engine.connect()
     
+    artist_list = ""
+    
+    for a in artist:
+        artist_list += f"'{a}', "
+        
+    artist_list = artist_list[:-2]
+    
+    artist_list = f"({artist_list})"
+    
+    
     query = sqlalchemy.text(f"""
         SELECT
             df."Row_Index",
+            df."Artist",
             df."SongName"
             FROM df
-            WHERE LOWER(df."Artist") LIKE :artist;
+            WHERE df."Artist" IN {artist_list};
     """)
-
-    songs = conn.execute(query, {'artist': f'%{artist.lower()}%'})
+        
+    songs = conn.execute(query)
     
     return songs.fetchall()
 
