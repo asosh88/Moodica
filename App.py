@@ -89,9 +89,7 @@ def app(state=0):
                         album = results['Album'][i]
                         st.markdown(f'Album: *{album} ({yr})*')
                         
-                        
-                    st.button('*Similar Songs*', key=i, help=f'Find Songs with Lyrics Similar to Those of "{songname}" by {artist}', on_click=on_click())
-                    
+                                            
                     
                     st.markdown('\n\n')
                         
@@ -124,10 +122,7 @@ def app(state=0):
                         
             artists_picked = len(artists_)
             
-            if artists_picked == 1:
-                artist_names = artists_[0]
-                
-            elif artists_picked >= 2:
+            if artists_picked >= 1:
                 artist_names = ""
                 for a in artists_:
                     artist_names += f'{a}, '
@@ -152,10 +147,31 @@ def app(state=0):
                     
                     st.dataframe(selected_songs)
                     
-                    st.write(songs_)                
+                    st.write(list(selected_songs['Row_Index']))
+                    
+                    #st.write(songs_)                
                 
-                st.dataframe(song_list)
-            
+                #st.dataframe(song_list)
+                
+                    
+            try:
+                song_artist_list = ""
+
+                for i in range(len(selected_songs['SongName'])):
+                    sn = str(selected_songs['SongName'][i])
+                    an = str(selected_songs['Artist'][i])
+                    #st.write(f"{sn} by {an}")
+                    song_artist_list += f'"{sn}" by {an}, '
+
+                st.session_state['selected_songs'] = song_artist_list[:-2]
+                
+            except:
+                pass
+
+
+
+                
+                    
             #songs = list()
             
             #for song in song_list:
@@ -166,6 +182,13 @@ def app(state=0):
         except:
             pass
         
+        try:
+            if len(songs_) > 0:
+                song_artist_list = st.session_state['selected_songs']
+                st.write(f'You Have Selected {song_artist_list}')
+            
+        except:
+            pass
         
         #for artist in artists:
         #    st.write(str(artist))
