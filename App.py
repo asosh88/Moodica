@@ -143,6 +143,7 @@ def app(state=0):
                 key='2')
                                 
                 if len(songs_) > 0:
+                    
                     selected_songs = song_list.loc[song_list['SongName'].isin(songs_)]
                     
                     st.dataframe(selected_songs)
@@ -154,13 +155,6 @@ def app(state=0):
                 #st.dataframe(song_list)
                 
                     
-            #songs = list()
-            
-            #for song in song_list:
-                #songs.append(song)
-
-                #st.write(song)
-        
         except:
             pass
         
