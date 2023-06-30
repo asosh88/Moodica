@@ -154,24 +154,6 @@ def app(state=0):
                 #st.dataframe(song_list)
                 
                     
-            try:
-                song_artist_list = ""
-
-                for i in range(len(selected_songs['SongName'])):
-                    sn = str(selected_songs['SongName'][i])
-                    an = str(selected_songs['Artist'][i])
-                    #st.write(f"{sn} by {an}")
-                    song_artist_list += f'"{sn}" by {an}, '
-
-                st.session_state['selected_songs'] = song_artist_list[:-2]
-                
-            except:
-                pass
-
-
-
-                
-                    
             #songs = list()
             
             #for song in song_list:
