@@ -146,8 +146,12 @@ def app(state=0):
                 suggestions=song_names,
                 maxtags = 5,
                 key='2')
-                
+                                
                 if len(songs_) > 0:
+                    selected_songs = song_list.loc[song_list['SongName'].isin(songs_)]
+                    
+                    st.dataframe(selected_songs)
+                    
                     st.write(songs_)                
                 
                 st.dataframe(song_list)
