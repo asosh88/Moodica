@@ -6,6 +6,17 @@ from urllib.parse import unquote, quote
 from streamlit_tags import st_tags, st_tags_sidebar
 import re
 
+def init():
+    
+    artists_list = Database.get_artists()
+
+    artists = list()
+    
+    for artist in artists_list:
+        artists.append(re.sub(r"\(|\)|'|,", '', str(artist)))
+        
+    st.session_state['artists_'] = artists
+            
 
 def on_click():
     st.session_state['service_type'] = 'Recommendation'
@@ -93,26 +104,24 @@ def app(state=0):
         st.write('**Search for Similar Songs**')
         st.write('\n\n')
         
-        artists_list = Database.get_artists()
+        artists = st.session_state['artists_']
         
-        artists = list()
-        for artist in artists_list:
-            artists.append(re.sub(r"\(|\)|'|,", '', str(artist)))
-            
-        artist_ = st_tags(
+        artists_ = st_tags(
         label='Artist:',
-        text='Enter A Band or Artist Name',
+        text='Enter Up to 5 Bands or Artists',
         suggestions=artists,
-        maxtags = 1,
+        maxtags = 5,
         key='1')
         
         #song_list = Database.get_songs(str(artist_))
         
         try:
-            song_list = Database.get_songs(str(artist_[0]))
+            song_list = Database.get_songs(artists_)
             
+            st.write(artists_)
             
             songs = list()
+            
             for song in song_list:
                 songs.append(song)
 
@@ -127,4 +136,5 @@ def app(state=0):
 
             
 if __name__ == '__main__':
+    init()
     app()
