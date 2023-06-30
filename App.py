@@ -101,13 +101,13 @@ def app(state=0):
     
     if st.session_state['service_type'] == 'Recommendation':
         
-        st.write('**Search for Similar Songs**')
+        st.write('**Search for Songs with Similar Lyrics**')
         st.write('\n\n')
         
         artists = st.session_state['artists_']
         
         artists_ = st_tags(
-        label='Artist:',
+        label='Artist(s):',
         text='Enter Up to 5 Bands or Artists',
         suggestions=artists,
         maxtags = 5,
@@ -118,14 +118,46 @@ def app(state=0):
         try:
             song_list = Database.get_songs(artists_)
             
-            st.write(artists_)
+            #st.write(artists_)
             
-            songs = list()
+            song_list = pd.DataFrame(song_list)
+                        
+            artists_picked = len(artists_)
             
-            for song in song_list:
-                songs.append(song)
+            if artists_picked == 1:
+                artist_names = artists_[0]
+                
+            elif artists_picked >= 2:
+                artist_names = ""
+                for a in artists_:
+                    artist_names += f'{a}, '
+                    
+                artist_names = artist_names[:-2]
+                
+            if artists_picked > 0:
+                
+                st.write(f'{len(song_list)} Songs Available from {artist_names}')
+                
+                song_names = list(song_list['SongName'])
+            
+                songs_ = st_tags(
+                label='Song(s):',
+                text='Enter Up to 10 Songs',
+                suggestions=song_names,
+                maxtags = 5,
+                key='2')
+                
+                if len(songs_) > 0:
+                    st.write(songs_)                
+                
+                st.dataframe(song_list)
+            
+            #songs = list()
+            
+            #for song in song_list:
+                #songs.append(song)
 
-                st.write(song)
+                #st.write(song)
         
         except:
             pass
