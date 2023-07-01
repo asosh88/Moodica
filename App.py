@@ -163,10 +163,14 @@ def app(state=1):
                         
                         if k % 51 == 0:
                             
+                            if k > 0:
+                                st.divider()
+                                
                             st.markdown(f'**Songs with Lyrics Similar to {songname_rec} by {artist_rec}:**')
                             st.markdown('\n\n')
                             
                             row_counter = 0
+                            
                                 
                         else:
                             
