@@ -21,7 +21,7 @@ def init():
 def on_click():
     st.session_state['service_type'] = 'Recommendation'
 
-def app(state=0):
+def app(state=1):
     
     st.title('Welcome to Moodica!')
     st.markdown('*Music Search & Recommendation*')
@@ -88,8 +88,6 @@ def app(state=0):
                         yr = str(results['Year'][i])[:-2]
                         album = results['Album'][i]
                         st.markdown(f'Album: *{album} ({yr})*')
-                        
-                                            
                     
                     st.markdown('\n\n')
                         
@@ -152,19 +150,43 @@ def app(state=0):
                     for s in songs_:
                         picked_songs_desc += f'"{s}", '
 
-                    picked_songs_desc = 'You Have Selected ' + picked_songs_desc[:-2]
+                    picked_songs_desc = 'Searching for Songs Similar to ' + picked_songs_desc[:-2] + '...'
                     picked_songs_desc = ' and '.join(picked_songs_desc.rsplit(', ', 1))
 
                     st.write(picked_songs_desc)
+                    
+                    st.markdown('\n\n')
+                    
 
-                    st.dataframe(selected_songs)
-                    
-                    st.write(list(selected_songs['Row_Index']))
-                    
-                    #st.write(songs_)                
-                
-                #st.dataframe(song_list)
-                
+                    #st.dataframe(selected_songs['Row_Index'])
+                                        
+                    similar_songs_ = Database.get_similar_songs(list(selected_songs['Row_Index']))
+
+                    similar_songs_ = pd.DataFrame(similar_songs_)
+
+                    row_counter = 0
+                    for k in range(len(similar_songs_['SongName'])):                
+                        songname_rec = similar_songs_['SongName'][k]
+                        artist_rec = similar_songs_['Artist'][k]
+                        row_counter += 1
+                        
+                        if k % 51 == 0:
+                            
+                            st.markdown(f'Songs with Lyrics Similar to **{songname_rec}** by {artist_rec}:')
+                            st.markdown('\n\n')
+                            
+                            row_counter = 0
+                                
+                        else:
+                            
+                            st.markdown(f'**{row_counter}. {songname_rec}** | {artist_rec}')
+
+                            if similar_songs_['Year'][k] != None:
+                                yr_rec = str(similar_songs_['Year'][k])[:-2]
+                                album_rec = similar_songs_['Album'][k]
+                                st.markdown(f'Album: *{album_rec} ({yr_rec})*')
+
+                            st.markdown('\n\n')
                     
         except:
             pass
