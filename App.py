@@ -128,6 +128,7 @@ def app(state=0):
                     artist_names += f'{a}, '
                     
                 artist_names = artist_names[:-2]
+                artist_names = " and ".join(artist_names.rsplit(', ', 1))
                 
             if artists_picked > 0:
                 
