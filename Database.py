@@ -22,6 +22,65 @@ def get_all_songs():
     return songs.fetchall()
     
 
+def get_similar_songs(source_songs):
+    
+    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
+    
+    engine = sqlalchemy.create_engine(conn_addy)
+
+    conn = engine.connect()
+    
+    song_list = ""
+    
+    for s in source_songs:
+        song_list += f"{s}, "
+        
+    song_list = song_list[:-2]
+    
+    song_list = f"({song_list})"
+
+    query = sqlalchemy.text(f"""
+        SELECT *
+            FROM similar_songs
+            WHERE similar_songs."Row_Index" IN {song_list};
+    """)
+
+    similar_songs = conn.execute(query)
+    
+    results = list()
+    table = list()
+    
+    for sim_son in similar_songs:
+        
+        #results = list()
+        
+        for so in sim_son:
+        
+            #results.append(so)
+            
+            #results = str(tuple(results))
+            
+            query = sqlalchemy.text(f"""
+                SELECT
+                    df."Row_Index",
+                    df."SongName", 
+                    df."Artist", 
+                    df."Album", 
+                    df."Year"
+                    FROM df
+                    WHERE df."Row_Index" = {so};
+            """)
+            
+            #results.append(so)
+        
+            similar_songs_ = conn.execute(query)
+            similar_songs_ = similar_songs_.fetchall()
+            table.append(similar_songs_[0])
+    
+    
+    return table
+    
+
 def get_songs(artist):
         
     conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
