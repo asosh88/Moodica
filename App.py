@@ -26,31 +26,29 @@ def app(state=1):
     st.title('Welcome to Moodica!')
     st.markdown('*Music Search & Recommendation*')
     
-    #service_type_options = 
     
     service_type =  st.sidebar.radio(
     'Service Type:',
     ('Search', 'Recommendation'),
     index=state,
-    #key='service_type'
     )
     
     st.session_state['service_type'] = service_type
-    
-    sort_by = st.sidebar.radio(
-    'Sort by:',
-    ('Artist', 'Album', 'Year'),
-    index=2
-    )
-    
-    sort_asc = st.sidebar.radio(
-    'Sort:',
-    ('Ascending', 'Descending'),
-    index=1
-    )
-    
-    
+        
     if st.session_state['service_type'] == 'Search':
+        
+        sort_by = st.sidebar.radio(
+        'Sort by:',
+        ('Artist', 'Album', 'Year'),
+        index=2
+        )
+
+        sort_asc = st.sidebar.radio(
+        'Sort:',
+        ('Ascending', 'Descending'),
+        index=1
+        )
+        
         search_type = st.radio(
         'Search for:',
         ('Artists', 'Albums', 'Songs', 'Lyrics', 'Credits'),
@@ -108,14 +106,10 @@ def app(state=1):
         suggestions=artists,
         maxtags = 5,
         key='1')
-        
-        #song_list = Database.get_songs(str(artist_))
-        
+                
         try:
             song_list = Database.get_songs(artists_)
-            
-            #st.write(artists_)
-            
+                        
             song_list = pd.DataFrame(song_list)
                         
             artists_picked = len(artists_)
@@ -156,10 +150,7 @@ def app(state=1):
                     st.write(picked_songs_desc)
                     
                     st.markdown('\n\n')
-                    
-
-                    #st.dataframe(selected_songs['Row_Index'])
-                                        
+                                                            
                     similar_songs_ = Database.get_similar_songs(list(selected_songs['Row_Index']))
 
                     similar_songs_ = pd.DataFrame(similar_songs_)
@@ -172,7 +163,7 @@ def app(state=1):
                         
                         if k % 51 == 0:
                             
-                            st.markdown(f'Songs with Lyrics Similar to **{songname_rec}** by {artist_rec}:')
+                            st.markdown(f'**Songs with Lyrics Similar to {songname_rec} by {artist_rec}:**')
                             st.markdown('\n\n')
                             
                             row_counter = 0
@@ -191,17 +182,6 @@ def app(state=1):
         except:
             pass
         
-        try:
-            if len(songs_) > 0:
-                song_artist_list = st.session_state['selected_songs']
-                st.write(f'You Have Selected {song_artist_list}')
-            
-        except:
-            pass
-        
-        #for artist in artists:
-        #    st.write(str(artist))
-
             
 if __name__ == '__main__':
     init()
