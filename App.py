@@ -146,6 +146,16 @@ def app(state=0):
                     
                     selected_songs = song_list.loc[song_list['SongName'].isin(songs_)]
                     
+                    picked_songs_desc = ""
+
+                    for s in songs_:
+                        picked_songs_desc += f'"{s}", '
+
+                    picked_songs_desc = 'You Have Selected ' + picked_songs_desc[:-2]
+                    picked_songs_desc = ' and '.join(picked_songs_desc.rsplit(', ', 1))
+
+                    st.write(picked_songs_desc)
+
                     st.dataframe(selected_songs)
                     
                     st.write(list(selected_songs['Row_Index']))
