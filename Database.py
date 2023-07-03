@@ -114,6 +114,40 @@ def get_songs(artist):
     return songs.fetchall()
 
 
+def get_lyrics(artist):
+        
+    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
+    
+    
+    engine = sqlalchemy.create_engine(conn_addy)
+
+    conn = engine.connect()
+    
+    artist_list = ""
+    
+    for a in artist:
+        artist_list += f"'{a}', "
+        
+    artist_list = artist_list[:-2]
+    
+    artist_list = f"({artist_list})"
+    
+    
+    query = sqlalchemy.text(f"""
+        SELECT
+            df."Row_Index",
+            df."Artist",
+            df."SongName",
+            df."Lyrics"
+            FROM df
+            WHERE df."Artist" IN {artist_list};
+    """)
+        
+    songs = conn.execute(query)
+    
+    return songs.fetchall()
+
+
 def get_artists():
     
     conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
