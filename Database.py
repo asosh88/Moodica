@@ -122,7 +122,7 @@ def get_lyrics(artist):
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
-    
+        
     artist_list = ""
     
     for a in artist:
