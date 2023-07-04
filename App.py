@@ -6,6 +6,7 @@ from urllib.parse import unquote, quote
 from streamlit_tags import st_tags, st_tags_sidebar
 import re
 
+
 def init():
     
     artists_list = Database.get_artists()
@@ -21,7 +22,7 @@ def init():
 def on_click():
     st.session_state['service_type'] = 'Recommendation'
 
-def app(state=2):
+def app(state=1):
     
     st.title('Welcome to Moodica!')
     st.markdown('*Music Search & Recommendation*')
@@ -29,7 +30,7 @@ def app(state=2):
     
     service_type =  st.sidebar.radio(
     'Service Type:',
-    ('Search', 'Recommendation', 'Visualization'),
+    ('Search', 'Recommendation'),
     index=state,
     )
     
@@ -187,34 +188,6 @@ def app(state=2):
             pass
         
         
-    elif st.session_state['service_type'] == 'Visualization':
-        
-        st.write('**Visualize Words Used by An Artist/Band**')
-        st.write('\n\n')
-        
-        artists = st.session_state['artists_']
-        
-        artists_ = st_tags(
-        label='Artist:',
-        text="Enter A Band or Artist's Name",
-        suggestions=artists,
-        maxtags = 1,
-        key='3')
-                
-        try:
-            song_list = Database.get_lyrics(artists_)
-                        
-            song_list = pd.DataFrame(song_list)
-            
-            lyrics = song_list['Lyrics']
-            
-            st.dataframe(song_list)
-            
-        except:
-            pass
-        
-        
-            
 if __name__ == '__main__':
     init()
     app()
