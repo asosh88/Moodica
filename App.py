@@ -74,8 +74,6 @@ def app(state=1):
                 st.write('\n\n')
                 st.write(f'Showing {results_num} Results with "{keyword}" in {field[search_type]}:')
                 st.title('\n\n')
-
-                buttons = list()
                 
                 for i in range(len(results['SongName'])):                
                     songname = results['SongName'][i]
