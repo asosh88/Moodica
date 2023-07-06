@@ -6,3 +6,4 @@ sample.db
 cloud-vectordb-examples/
 Display.py
 COMMIT_EDITMSG
+*.DS_Store
