@@ -57,7 +57,6 @@ def app(state=1):
         placeholder = st.empty()
         
         keyword = placeholder.text_input('Keywords:', placeholder='Type your keywords here.')        
-
         field = {'Artists': 'Artist Name', 'Albums': 'Album Name', 'Songs': 'Song Name', 'Lyrics': 'Song Lyrics', 'Credits': 'Song Credits'}
         sort_asc_dict = {'Ascending': True, 'Descending': False}
         
@@ -90,12 +89,10 @@ def app(state=1):
                 
     
     elif st.session_state['service_type'] == 'Recommendation':
-        
         st.write('**Search for Songs with Similar Lyrics**')
         st.write('\n\n')
         
         artists = st.session_state['artists_']
-        
         artists_ = st_tags(
         label='Artist(s):',
         text='Enter Up to 5 Bands or Artists',
@@ -119,11 +116,9 @@ def app(state=1):
                 artist_names = " and ".join(artist_names.rsplit(', ', 1))
                 
             if artists_picked > 0:
-                
                 st.write(f'{len(song_list)} Songs Available from {artist_names}')
                 
                 song_names = list(song_list['SongName'])
-            
                 songs_ = st_tags(
                 label='Song(s):',
                 text='Enter Up to 10 Songs',
@@ -132,7 +127,6 @@ def app(state=1):
                 key='2')
                                 
                 if len(songs_) > 0:
-                    
                     selected_songs = song_list.loc[song_list['SongName'].isin(songs_)]
                     
                     picked_songs_desc = ""
@@ -158,7 +152,6 @@ def app(state=1):
                         row_counter += 1
                         
                         if k % 51 == 0:
-                            
                             if k > 0:
                                 st.divider()
                                 
@@ -166,10 +159,8 @@ def app(state=1):
                             st.markdown('\n\n')
                             
                             row_counter = 0
-                            
                                 
                         else:
-                            
                             st.markdown(f'**{row_counter}. {songname_rec}** | {artist_rec}')
 
                             if similar_songs_['Year'][k] != None:
