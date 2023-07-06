@@ -19,9 +19,6 @@ def init():
     st.session_state['artists_'] = artists
             
 
-def on_click():
-    st.session_state['service_type'] = 'Recommendation'
-
 def app(state=1):
     
     st.title('Welcome to Moodica!')
