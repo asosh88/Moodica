@@ -1,6 +1,6 @@
 import streamlit as st
 import Database
-import Plot
+import Plotting
 import matplotlib.pyplot as plt
 import pandas as pd
 from urllib.parse import unquote, quote
@@ -207,7 +207,7 @@ def app(state=2):
 
             lc = str(Database.get_lyrics(list(artists_)))
             
-            pl = Plot.word_cloud(lc)
+            pl = Plotting.word_cloud(lc)
             
             fig, ax = plt.subplots(figsize=[15,10])
             ax.imshow(pl, interpolation="bilinear")
