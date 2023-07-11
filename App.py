@@ -18,7 +18,7 @@ def init():
     st.session_state['artists_'] = artists
             
 
-def app(state=1):
+def app(state=2):
     
     st.title('Welcome to Moodica!')
     st.markdown('*Music Search & Recommendation*')
@@ -26,7 +26,7 @@ def app(state=1):
     
     service_type =  st.sidebar.radio(
     'Service Type:',
-    ('Search', 'Recommendation'),
+    ('Search', 'Recommendation', 'Visualization'),
     index=state,
     )
     
@@ -172,6 +172,44 @@ def app(state=1):
         except:
             pass
         
+    elif st.session_state['service_type'] == 'Visualization':
+        st.write("**Visualize An Artist/Band's Songs**")
+        st.write('\n\n')
+        
+        artists = st.session_state['artists_']
+        artists_ = st_tags(
+        label='Artist(s):',
+        text='Enter Up to 5 Bands or Artists',
+        suggestions=artists,
+        maxtags = 5,
+        key='1')
+                
+        #try:
+
+        artists_picked = len(artists_)
+
+        if artists_picked >= 1:
+            song_list = Database.get_songs(artists_)
+            song_list = pd.DataFrame(song_list)
+            
+            artist_names = ""
+            
+            for a in artists_:
+                artist_names += f'{a}, '
+
+            artist_names = artist_names[:-2]
+            artist_names = " and ".join(artist_names.rsplit(', ', 1))
+
+        if artists_picked > 0:
+            st.write(f'{len(song_list)} Songs Available from {artist_names}')
+
+            lc = Database.get_lyrics(list(artists_))
+
+            st.write(lc)
+                
+                
+        #except:
+        #    pass
         
 if __name__ == '__main__':
     init()
