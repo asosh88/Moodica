@@ -135,17 +135,16 @@ def get_lyrics(artist):
     
     query = sqlalchemy.text(f"""
         SELECT
-            df."Row_Index",
-            df."Artist",
-            df."SongName",
-            df."Lyrics"
+            STRING_AGG(df."Lyrics", ' ')
             FROM df
             WHERE df."Artist" IN {artist_list};
     """)
         
-    songs = conn.execute(query)
+    lrc = conn.execute(query)
     
-    return songs.fetchall()
+    return  (' '.join((lrc.fetchall()[0]))
+                .replace('\n', ' '))
+
 
 
 def get_artists():
