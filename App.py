@@ -1,5 +1,7 @@
 import streamlit as st
 import Database
+import Plot
+import matplotlib.pyplot as plt
 import pandas as pd
 from urllib.parse import unquote, quote
 from streamlit_tags import st_tags, st_tags_sidebar
@@ -179,10 +181,10 @@ def app(state=2):
         artists = st.session_state['artists_']
         artists_ = st_tags(
         label='Artist(s):',
-        text='Enter Up to 5 Bands or Artists',
+        text="Enter A Band or Artist's Name",
         suggestions=artists,
-        maxtags = 5,
-        key='1')
+        maxtags = 1,
+        key='2')
                 
         #try:
 
@@ -201,11 +203,19 @@ def app(state=2):
             artist_names = " and ".join(artist_names.rsplit(', ', 1))
 
         if artists_picked > 0:
-            st.write(f'{len(song_list)} Songs Available from {artist_names}')
+            st.write(f'Showing Word-Cloud for {len(song_list)} Songs by {artist_names}')
 
-            lc = Database.get_lyrics(list(artists_))
+            lc = str(Database.get_lyrics(list(artists_)))
+            
+            pl = Plot.word_cloud(lc)
+            
+            fig, ax = plt.subplots(figsize=[15,10])
+            ax.imshow(pl, interpolation="bilinear")
+            plt.axis('off')
+            plt.show()
+            st.pyplot(fig)
 
-            st.write(lc)
+            #st.write(pl)
                 
                 
         #except:
