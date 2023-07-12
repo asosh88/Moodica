@@ -5,14 +5,14 @@ import re
 
 sw = list(pd.read_csv('Stopwords-English.csv', header=None)[0])
 
-def black_color(word, font_size, position, orientation, random_state=None, **kwargs):
+def black_bc(word, font_size, position, orientation, random_state=None, **kwargs):
     
-    return("hsl(0,100%, 1%)")
+    return("hsl(0, 100%, 1%)")
 
 
 def word_cloud(txt):
     
-    txt = re.sub(r'\[.+?\]', '', txt)
+    txt = re.sub(r'\[.+?\]', "", txt)
     
     cv = CountVectorizer(max_features=500, stop_words=sw)
     
@@ -24,8 +24,8 @@ def word_cloud(txt):
     
     words = pd.DataFrame(dense, columns=feature_names).transpose()
     
-    wordcloud = WordCloud(background_color="white", width=600, height=400).generate_from_frequencies(words[0])
+    wordcloud = WordCloud(font_path="/System/Library/Fonts/Supplemental/Arial Unicode.ttf", background_color="white", width=600, height=400).generate_from_frequencies(words[0])
     
-    wordcloud.recolor(color_func = black_color)
+    wordcloud.recolor(color_func = black_bc)
     
     return wordcloud
