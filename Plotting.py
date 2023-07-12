@@ -24,8 +24,6 @@ def word_cloud(txt):
     
     words = pd.DataFrame(dense, columns=feature_names).transpose()
     
-    #words = words.sum(axis=1)
-    
     wordcloud = WordCloud(background_color="white", width=600, height=400).generate_from_frequencies(words[0])
     
     wordcloud.recolor(color_func = black_color)
