@@ -209,7 +209,7 @@ def app(state=2):
 
                 pl = Plotting.word_cloud(lc)
 
-                fig, ax = plt.subplots(figsize=[15,10])
+                fig, ax = plt.subplots()
                 ax.imshow(pl, interpolation="bilinear")
                 plt.axis('off')
                 plt.show()
