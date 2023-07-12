@@ -186,40 +186,40 @@ def app(state=2):
         maxtags = 1,
         key='2')
                 
-        #try:
+        try:
 
-        artists_picked = len(artists_)
+            artists_picked = len(artists_)
 
-        if artists_picked >= 1:
-            song_list = Database.get_songs(artists_)
-            song_list = pd.DataFrame(song_list)
-            
-            artist_names = ""
-            
-            for a in artists_:
-                artist_names += f'{a}, '
+            if artists_picked >= 1:
+                song_list = Database.get_songs(artists_)
+                song_list = pd.DataFrame(song_list)
 
-            artist_names = artist_names[:-2]
-            artist_names = " and ".join(artist_names.rsplit(', ', 1))
+                artist_names = ""
 
-        if artists_picked > 0:
-            st.write(f'Showing Word-Cloud for {len(song_list)} Songs by {artist_names}')
+                for a in artists_:
+                    artist_names += f'{a}, '
 
-            lc = str(Database.get_lyrics(list(artists_)))
-            
-            pl = Plotting.word_cloud(lc)
-            
-            fig, ax = plt.subplots(figsize=[15,10])
-            ax.imshow(pl, interpolation="bilinear")
-            plt.axis('off')
-            plt.show()
-            st.pyplot(fig)
+                artist_names = artist_names[:-2]
+                artist_names = " and ".join(artist_names.rsplit(', ', 1))
+
+            if artists_picked > 0:
+                st.write(f'Showing Word-Cloud for {len(song_list)} Songs by {artist_names}')
+
+                lc = str(Database.get_lyrics(list(artists_)))
+
+                pl = Plotting.word_cloud(lc)
+
+                fig, ax = plt.subplots(figsize=[15,10])
+                ax.imshow(pl, interpolation="bilinear")
+                plt.axis('off')
+                plt.show()
+                st.pyplot(fig)
 
             #st.write(pl)
                 
                 
-        #except:
-        #    pass
+        except:
+            pass
         
 if __name__ == '__main__':
     init()
