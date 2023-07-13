@@ -212,10 +212,7 @@ def app(state=2):
                 fig, ax = plt.subplots()
                 ax.imshow(pl, interpolation="bilinear")
                 plt.axis('off')
-                plt.show()
                 st.pyplot(fig)
-
-            #st.write(pl)
                 
                 
         except:
