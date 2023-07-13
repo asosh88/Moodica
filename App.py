@@ -184,7 +184,7 @@ def app(state=2):
         text="Enter A Band or Artist's Name",
         suggestions=artists,
         maxtags = 1,
-        key='2')
+        key='3')
                 
         try:
 
