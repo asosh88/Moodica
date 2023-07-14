@@ -5,11 +5,6 @@ import re
 
 sw = list(pd.read_csv('Stopwords-English.csv', header=None)[0])
 
-def black_bc(word, font_size, position, orientation, random_state=None, **kwargs):
-    
-    return("hsl(0, 100%, 1%)")
-
-
 def word_cloud(txt):
     
     txt = re.sub(r'\[.+?\]', "", txt)
@@ -26,6 +21,6 @@ def word_cloud(txt):
     
     wordcloud = WordCloud(background_color="white", prefer_horizontal=.65, width=2000, height=2000, max_words=500).generate_from_frequencies(words[0])
     
-    wordcloud.recolor(color_func = black_bc)
+    wordcloud.recolor(color_func=lambda *args, **kwargs: 'black')
     
     return wordcloud
