@@ -175,7 +175,7 @@ def app(state=2):
             pass
         
     elif st.session_state['service_type'] == 'Visualization':
-        st.write("**Visualize An Artist/Band's Songs**")
+        st.write("**Visualize WordCloud of Artist/Band's Discography**")
         st.write('\n\n')
         
         artists = st.session_state['artists_']
