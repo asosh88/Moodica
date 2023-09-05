@@ -4,8 +4,6 @@ import os
 
 def get_all_songs():
     
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
