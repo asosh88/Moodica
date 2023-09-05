@@ -22,8 +22,6 @@ def get_all_songs():
 
 def get_similar_songs(source_songs):
     
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -81,9 +79,6 @@ def get_similar_songs(source_songs):
 
 def get_songs(artist):
         
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -114,9 +109,6 @@ def get_songs(artist):
 
 def get_lyrics(artist):
         
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -147,9 +139,6 @@ def get_lyrics(artist):
 
 def get_artists():
     
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -166,13 +155,6 @@ def get_artists():
     return artists.fetchall()
 
 def kw_search(keyword, field):
-    
-    #conn_addy = os.getenv('DB_URL')
-    
-    #conn_addy = 'postgresql://edb_admin:http%3A//hY5-C67%2A_frEs%40m0/%2323%21@p-r8xgmomuzb.pg.biganimal.io:5432/edb_admin'
-    
-    conn_addy = 'postgresql://edb_admin:6H4BqmoA26ge!byY1@p-r8xgmu1bk5.pg.biganimal.io:5432/edb_admin'
-    
     
     engine = sqlalchemy.create_engine(conn_addy)
 
