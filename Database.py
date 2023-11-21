@@ -2,7 +2,7 @@ import sys
 import sqlalchemy
 import os
 
-conn_addy = os.genenv('PG_ADDRESS')
+conn_addy = os.getenv('PG_ADDRESS')
 
 def get_all_songs():
     
