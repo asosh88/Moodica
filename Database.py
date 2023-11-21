@@ -2,11 +2,13 @@ import sys
 import sqlalchemy
 import os
 
+
 conn_addy = os.getenv('PG_ADDRESS')
 
 engine = sqlalchemy.create_engine(conn_addy)
 
 conn = engine.connect()
+
     
 def get_all_songs():
     
@@ -42,18 +44,13 @@ def get_similar_songs(source_songs):
     similar_songs = conn.execute(query)
     
     results = list()
+    
     table = list()
     
     for sim_son in similar_songs:
         
-        #results = list()
-        
         for so in sim_son:
-        
-            #results.append(so)
-            
-            #results = str(tuple(results))
-            
+                                
             query = sqlalchemy.text(f"""
                 SELECT
                     df."Row_Index",
@@ -64,13 +61,12 @@ def get_similar_songs(source_songs):
                     FROM df
                     WHERE df."Row_Index" = {so};
             """)
-            
-            #results.append(so)
-        
+                    
             similar_songs_ = conn.execute(query)
+            
             similar_songs_ = similar_songs_.fetchall()
+            
             table.append(similar_songs_[0])
-    
     
     return table
     
@@ -85,7 +81,6 @@ def get_songs(artist):
     artist_list = artist_list[:-2]
     
     artist_list = f"({artist_list})"
-    
     
     query = sqlalchemy.text(f"""
         SELECT
@@ -112,7 +107,6 @@ def get_lyrics(artist):
     
     artist_list = f"({artist_list})"
     
-    
     query = sqlalchemy.text(f"""
         SELECT
             STRING_AGG(df."Lyrics", ' ')
@@ -124,7 +118,6 @@ def get_lyrics(artist):
     
     return  (' '.join((lrc.fetchall()[0]))
                 .replace('\n', ' '))
-
 
 
 def get_artists():
@@ -139,6 +132,7 @@ def get_artists():
     artists = conn.execute(query)
     
     return artists.fetchall()
+
 
 def kw_search(keyword, field):
     
@@ -165,6 +159,7 @@ def kw_search(keyword, field):
     results = conn.execute(query, {'keyword': f'%{keyword.lower()}%'})
     
     return results.fetchall()
+
 
 if __name__ == '__main__':
     
