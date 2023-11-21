@@ -4,11 +4,11 @@ import os
 
 conn_addy = os.getenv('PG_ADDRESS')
 
-def get_all_songs():
-    
-    engine = sqlalchemy.create_engine(conn_addy)
+engine = sqlalchemy.create_engine(conn_addy)
 
-    conn = engine.connect()
+conn = engine.connect()
+    
+def get_all_songs():
     
     query = sqlalchemy.text(f"""
         SELECT
@@ -23,10 +23,6 @@ def get_all_songs():
     
 
 def get_similar_songs(source_songs):
-    
-    engine = sqlalchemy.create_engine(conn_addy)
-
-    conn = engine.connect()
     
     song_list = ""
     
@@ -81,10 +77,6 @@ def get_similar_songs(source_songs):
 
 def get_songs(artist):
         
-    engine = sqlalchemy.create_engine(conn_addy)
-
-    conn = engine.connect()
-    
     artist_list = ""
     
     for a in artist:
@@ -110,10 +102,6 @@ def get_songs(artist):
 
 
 def get_lyrics(artist):
-        
-    engine = sqlalchemy.create_engine(conn_addy)
-
-    conn = engine.connect()
         
     artist_list = ""
     
@@ -141,10 +129,6 @@ def get_lyrics(artist):
 
 def get_artists():
     
-    engine = sqlalchemy.create_engine(conn_addy)
-
-    conn = engine.connect()
-    
     query = sqlalchemy.text(f"""
         SELECT
             DISTINCT(df."Artist")
@@ -157,10 +141,6 @@ def get_artists():
     return artists.fetchall()
 
 def kw_search(keyword, field):
-    
-    engine = sqlalchemy.create_engine(conn_addy)
-
-    conn = engine.connect()
     
     fields = {
         'Artists': 'Artist',
