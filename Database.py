@@ -2,9 +2,9 @@ import sys
 import sqlalchemy
 import os
 
+conn_addy = os.getenv('PG_ADDRESS')
+
 def get_all_songs():
-    
-    conn_addy = os.getenv('PG_ADDRESS')
     
     engine = sqlalchemy.create_engine(conn_addy)
 
@@ -23,8 +23,6 @@ def get_all_songs():
     
 
 def get_similar_songs(source_songs):
-    
-    conn_addy = os.getenv('PG_ADDRESS')
     
     engine = sqlalchemy.create_engine(conn_addy)
 
@@ -83,8 +81,6 @@ def get_similar_songs(source_songs):
 
 def get_songs(artist):
         
-    conn_addy = os.getenv('PG_ADDRESS')
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -115,8 +111,6 @@ def get_songs(artist):
 
 def get_lyrics(artist):
         
-    conn_addy = os.getenv('PG_ADDRESS')
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -147,8 +141,6 @@ def get_lyrics(artist):
 
 def get_artists():
     
-    conn_addy = os.getenv('PG_ADDRESS')
-    
     engine = sqlalchemy.create_engine(conn_addy)
 
     conn = engine.connect()
@@ -165,8 +157,6 @@ def get_artists():
     return artists.fetchall()
 
 def kw_search(keyword, field):
-    
-    conn_addy = os.getenv('PG_ADDRESS')
     
     engine = sqlalchemy.create_engine(conn_addy)
 
