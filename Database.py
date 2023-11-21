@@ -2,6 +2,8 @@ import sys
 import sqlalchemy
 import os
 
+conn_addy = os.genenv('PG_ADDRESS')
+
 def get_all_songs():
     
     engine = sqlalchemy.create_engine(conn_addy)
