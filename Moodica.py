@@ -164,7 +164,7 @@ def app(state=2):
                         else:
                             st.markdown(f'**{row_counter}. {songname_rec}** | {artist_rec}')
 
-                            if similar_songs_['Year'][k] != None:
+                            if similar_songs_['Album'][k] != None:
                                 yr_rec = str(similar_songs_['Year'][k])[:-2]
                                 album_rec = similar_songs_['Album'][k]
                                 st.markdown(f'Album: *{album_rec} ({yr_rec})*')
