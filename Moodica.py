@@ -78,7 +78,7 @@ def app(state=2):
                     row_index = results['Row_Index'][i]
                     st.markdown(f'**{i+1}. {songname}** | {artist}')
 
-                    if results['Year'][i] != None:
+                    if results['Album'][i] != None:
                         yr = str(results['Year'][i])[:-2]
                         album = results['Album'][i]
                         st.markdown(f'Album: *{album} ({yr})*')
