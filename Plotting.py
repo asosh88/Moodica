@@ -9,6 +9,10 @@ def word_cloud(txt):
     
     txt = re.sub(r'\[.+?\]', "", txt)
     
+    pattern = r'\b(\w)\1+\w?\b'
+    
+    txt = re.sub(pattern, '', txt)
+    
     cv = CountVectorizer(max_features=500, stop_words=sw)
     
     features = cv.fit_transform([txt])
