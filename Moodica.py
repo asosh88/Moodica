@@ -79,7 +79,7 @@ def app(state=2):
                     url = results['SongHandle'][i]
                     url = url.replace('_', '/')
                     url = 'https://www.azlyrics.com/lyrics/' + url
-                    st.markdown(f'{i+1}. [{songname}](%s) | {artist}' % url )
+                    st.markdown(f'{i+1}.[{songname}](%s) | {artist}' % url)
 
                     if results['Album'][i] != None:
                         yr = str(results['Year'][i])[:-2]
@@ -169,7 +169,7 @@ def app(state=2):
                                 
                         else:
                             
-                            st.markdown(f'{row_counter}. [{songname_rec}](%s) | {artist_rec}' % url)
+                            st.markdown(f'{row_counter}.[{songname_rec}](%s) | {artist_rec}' % url)
 
                             if similar_songs_['Album'][k] != None:
                                 yr_rec = str(similar_songs_['Year'][k])[:-2]
