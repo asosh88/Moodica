@@ -167,6 +167,7 @@ def kw_search(keyword, field):
     query = sqlalchemy.text(f"""
         SELECT
             df."Row_Index",
+            df."SongHandle",            
             df."SongName", 
             df."Artist", 
             df."Album", 
