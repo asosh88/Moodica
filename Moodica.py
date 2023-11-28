@@ -165,7 +165,10 @@ def app(state=2):
                             row_counter = 0
                                 
                         else:
-                            st.markdown(f'**{row_counter}. {songname_rec}** | {artist_rec}')
+                            url = results['SongHandle'][k]
+                            url = url.replace('_', '/')
+                            url = 'https://www.azlyrics.com/lyrics/' + url
+                            st.markdown(f'{row_counter}. [{songname_rec}](%s) | {artist_rec}' % url)
 
                             if similar_songs_['Album'][k] != None:
                                 yr_rec = str(similar_songs_['Year'][k])[:-2]
