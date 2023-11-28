@@ -76,7 +76,10 @@ def app(state=2):
                     songname = results['SongName'][i]
                     artist = results['Artist'][i]
                     row_index = results['Row_Index'][i]
-                    st.markdown(f'**{i+1}. {songname}** | {artist}')
+                    url = results['SongHandle'][i]
+                    url = url.replace('_', '/')
+                    url = 'https://www.azlyrics.com/lyrics/' + url
+                    st.markdown(f'**{i+1}. [{songname}** | {artist}](%s)' % url )
 
                     if results['Album'][i] != None:
                         yr = str(results['Year'][i])[:-2]
