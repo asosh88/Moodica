@@ -153,6 +153,9 @@ def app(state=2):
                     for k in range(len(similar_songs_['SongName'])):                
                         songname_rec = similar_songs_['SongName'][k]
                         artist_rec = similar_songs_['Artist'][k]
+                        url = similar_songs_['SongHandle'][k]
+                        url = url.replace('_', '/')
+                        url = 'https://www.azlyrics.com/lyrics/' + url
                         row_counter += 1
                         
                         if k % 51 == 0:
@@ -165,9 +168,7 @@ def app(state=2):
                             row_counter = 0
                                 
                         else:
-                            url = results['SongHandle'][k]
-                            url = url.replace('_', '/')
-                            url = 'https://www.azlyrics.com/lyrics/' + url
+                            
                             st.markdown(f'{row_counter}. [{songname_rec}](%s) | {artist_rec}' % url)
 
                             if similar_songs_['Album'][k] != None:
