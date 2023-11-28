@@ -58,6 +58,7 @@ def get_similar_songs(source_songs):
             query = sqlalchemy.text(f"""
                 SELECT
                     df."Row_Index",
+                    df."SongHandle",
                     df."SongName", 
                     df."Artist", 
                     df."Album", 
